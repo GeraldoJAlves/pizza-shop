@@ -26,10 +26,9 @@ export function SignUp() {
   } = useForm<SignUpForm>()
 
   async function handleSignUp(data: SignUpForm) {
-    console.log(data)
     try {
       await new Promise((resolve) => setTimeout(resolve, 1500))
-
+      console.log(data)
       toast.success('Restaurante cadastrado com sucesso.', {
         action: {
           label: 'Login',
