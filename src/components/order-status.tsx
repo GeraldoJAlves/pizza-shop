@@ -32,10 +32,9 @@ export function OrderStatus({ status }: OrderStatusProps) {
         <span className="h-2 w-2 rounded-full bg-emerald-500" />
       )}
 
-      {status === 'processing' ||
-        (status === 'delivering' && (
-          <span className="h-2 w-2 rounded-full bg-amber-500" />
-        ))}
+      {(status === 'processing' || status === 'delivering') && (
+        <span className="h-2 w-2 rounded-full bg-amber-500" />
+      )}
 
       <span className="font-medium text-muted-foreground">
         {OrderStatusMap[status]}
