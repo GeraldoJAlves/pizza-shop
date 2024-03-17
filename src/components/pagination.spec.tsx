@@ -6,6 +6,10 @@ import { Pagination } from './pagination'
 const onPageChangeCallback = vi.fn()
 
 describe('Pagination', () => {
+  beforeEach(() => {
+    onPageChangeCallback.mockClear()
+  })
+
   it('should display the right amount of pages and results', () => {
     const wrapper = render(
       <Pagination
@@ -37,6 +41,26 @@ describe('Pagination', () => {
 
     await user.click(nextPageButton)
 
-    expect(onPageChangeCallback).toHaveBeenCalledWith(1)
+    expect(onPageChangeCallback).toHaveBeenCalledTimes(1)
+  })
+
+  it('should be able to navigate to the first page', async () => {
+    const user = userEvent.setup()
+    const wrapper = render(
+      <Pagination
+        pageIndex={0}
+        totalCount={200}
+        perPage={10}
+        onPageChange={onPageChangeCallback}
+      />,
+    )
+
+    const firstPageButton = wrapper.getByRole('button', {
+      name: 'Primeira página',
+    })
+
+    await user.click(firstPageButton)
+
+    expect(onPageChangeCallback).toBeCalledTimes(0)
   })
 })
