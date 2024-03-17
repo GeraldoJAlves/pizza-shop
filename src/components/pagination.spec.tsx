@@ -44,6 +44,26 @@ describe('Pagination', () => {
     expect(onPageChangeCallback).toHaveBeenCalledTimes(1)
   })
 
+  it('should be able to navigate to the previous page', async () => {
+    const user = userEvent.setup()
+    const wrapper = render(
+      <Pagination
+        pageIndex={0}
+        totalCount={200}
+        perPage={10}
+        onPageChange={onPageChangeCallback}
+      />,
+    )
+
+    const previousPageButton = wrapper.getByRole('button', {
+      name: 'Página anterior',
+    })
+
+    await user.click(previousPageButton)
+
+    expect(onPageChangeCallback).toBeCalledTimes(0)
+  })
+
   it('should be able to navigate to the first page', async () => {
     const user = userEvent.setup()
     const wrapper = render(
