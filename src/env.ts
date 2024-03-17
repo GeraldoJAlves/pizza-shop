@@ -1,9 +1,11 @@
 import { z } from 'zod'
 
 const envSchema = z.object({
-  VITE_MODE: z.enum(['production', 'development', 'test']),
+  MODE: z.enum(['production', 'development', 'test']),
   VITE_API_URL: z.string().url(),
   VITE_ENABLE_API_DELAY: z.string().transform((value) => value === 'true'),
 })
+
+console.log(import.meta.env)
 
 export const env = envSchema.parse(import.meta.env)

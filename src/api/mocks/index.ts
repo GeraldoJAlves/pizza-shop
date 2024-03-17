@@ -5,8 +5,9 @@ import { env } from '@/env'
 export const worker = setupWorker()
 
 export async function enableMSW() {
-  if (env.VITE_MODE !== 'test') {
+  if (env.MODE !== 'test') {
     return
   }
+  console.log('test')
   await worker.start()
 }
