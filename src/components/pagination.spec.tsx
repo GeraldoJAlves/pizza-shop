@@ -42,6 +42,7 @@ describe('Pagination', () => {
     await user.click(nextPageButton)
 
     expect(onPageChangeCallback).toHaveBeenCalledTimes(1)
+    expect(onPageChangeCallback).toHaveBeenCalledWith(1)
   })
 
   it('should be able to navigate to the previous page', async () => {
@@ -82,5 +83,26 @@ describe('Pagination', () => {
     await user.click(firstPageButton)
 
     expect(onPageChangeCallback).toBeCalledTimes(0)
+  })
+
+  it('should be able to navigate to the last page', async () => {
+    const user = userEvent.setup()
+    const wrapper = render(
+      <Pagination
+        pageIndex={0}
+        totalCount={200}
+        perPage={10}
+        onPageChange={onPageChangeCallback}
+      />,
+    )
+
+    const lastPageButton = wrapper.getByRole('button', {
+      name: 'Última página',
+    })
+
+    await user.click(lastPageButton)
+
+    expect(onPageChangeCallback).toBeCalledTimes(1)
+    expect(onPageChangeCallback).toHaveBeenCalledWith(19)
   })
 })
