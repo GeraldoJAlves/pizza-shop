@@ -55,13 +55,14 @@ export const getOrdersMock = http.get<never, never, GetOrdersResponse>(
       )
     }
 
-    const paginationOders = filteredOrders.slice(
+    const paginationOrders = filteredOrders.slice(
       pageIndex * 10,
-      (pageIndex - 1) * 10,
+      (pageIndex + 1) * 10,
     )
+    console.log(pageIndex)
 
     return HttpResponse.json({
-      orders: paginationOders,
+      orders: paginationOrders,
       meta: {
         pageIndex,
         perPage: 10,
