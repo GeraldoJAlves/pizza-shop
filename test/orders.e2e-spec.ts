@@ -64,3 +64,12 @@ test('filter by order id', async ({ page }) => {
 
   await expect(page.getByRole('cell', { name: 'order-11' })).toBeVisible()
 })
+
+test('filter by customer name', async ({ page }) => {
+  await page.goto('/orders', { waitUntil: 'networkidle' })
+
+  await page.getByPlaceholder('Nome do cliente').fill('Customer 11')
+  await page.getByRole('button', { name: 'Filtrar resultados' }).click()
+
+  await expect(page.getByRole('cell', { name: 'Customer 11' })).toBeVisible()
+})
