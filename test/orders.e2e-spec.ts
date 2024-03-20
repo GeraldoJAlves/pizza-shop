@@ -55,3 +55,12 @@ test('paginate orders', async ({ page }) => {
     page.getByRole('cell', { name: 'Customer 10', exact: true }),
   ).toBeVisible()
 })
+
+test('filter by order id', async ({ page }) => {
+  await page.goto('/orders', { waitUntil: 'networkidle' })
+
+  await page.getByPlaceholder('ID do pedido').fill('order-11')
+  await page.getByRole('button', { name: 'Filtrar resultados' }).click()
+
+  await expect(page.getByRole('cell', { name: 'order-11' })).toBeVisible()
+})
