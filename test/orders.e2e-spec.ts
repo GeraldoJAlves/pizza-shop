@@ -73,3 +73,16 @@ test('filter by customer name', async ({ page }) => {
 
   await expect(page.getByRole('cell', { name: 'Customer 11' })).toBeVisible()
 })
+
+test('filter by status', async ({ page }) => {
+  await page.goto('/orders', { waitUntil: 'networkidle' })
+
+  await page.getByRole('combobox').click()
+  await page.getByLabel('Pendente').click()
+
+  await page.getByRole('button', { name: 'Filtrar resultados' }).click()
+
+  const tableRows = await page.getByRole('cell', { name: 'Pendente' }).all()
+
+  await expect(tableRows).toHaveLength(10)
+})
